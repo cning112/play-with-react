@@ -37,7 +37,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "tsc --noEmit && lint-staged"
     }
   },
   "lint-staged": {
@@ -47,7 +47,7 @@
     ],
     "src/**/*.{css,scss}": [
       "stylelint --fix",
-      "prettier --write",
+      "prettier --write --parser css",
       "git add"
     ]
   },

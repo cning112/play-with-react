@@ -1,18 +1,27 @@
 {
-    "eslint.autoFixOnSave": true,
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        {
-            "language": "typescript",
-            "autoFix": true
-        },
-        {
-            "language": "typescriptreact",
-            "autoFix": true
-        }
-    ],
-    "css.validate": false,
-    "less.validate": false,
-    "scss.validate": false
+  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": false,
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "typescript",
+      "autoFix": true
+    },
+    {
+      "language": "typescriptreact",
+      "autoFix": true
+    }
+  ],
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "beautify.language": {
+    "js": {
+      "type": [],
+      "filename": []
+    },
+    "css": [],
+    "html": ["htm", "html"]
+  }
 }
