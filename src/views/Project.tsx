@@ -8,6 +8,7 @@ import FileUpload from 'src/components/Inputs/FileUpload';
 import TextInput from 'src/components/Inputs/TextInput';
 import useForm from 'react-hook-form';
 import axios from 'axios';
+import { Person } from 'src/components/JsonForm';
 
 // function getProject(id: string): ProjectInfo {
 //   return {
@@ -154,11 +155,14 @@ export default function Project() {
 
   return (
     <Fragment>
+      <p>{JSON.stringify(formState)}</p>
+      <p>{JSON.stringify(getValues())}</p>
+
+      <Person></Person>
+
       {projInfo ? (
         <Fragment>
           <Typography variant="h2">{projInfo.name}</Typography>
-          <p>{JSON.stringify(formState)}</p>
-          <p>{JSON.stringify(getValues())}</p>
           <Stepper {...{ steps, activeStep, handleNext, handlePrev }}>{currStep(activeStep)}</Stepper>
         </Fragment>
       ) : (
