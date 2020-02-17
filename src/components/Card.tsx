@@ -5,13 +5,16 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import { ProjectInfo } from 'src/types';
 import { CardActionArea } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles({
   card: {
     minWidth: 275,
     maxWidth: 300,
     minHeight: 120
+  },
+  actionArea: {
+    paddingBottom: 20
   },
   title: {
     fontSize: 14
@@ -25,10 +28,11 @@ interface Props {
 export default function Component(props: Props) {
   const classes = useStyles();
   const { id, name, description } = props.projInfo;
+  const history = useHistory();
 
   return (
     <Card className={classes.card}>
-      <CardActionArea component={Link} to={`/${id}`}>
+      <CardActionArea className={classes.actionArea} onClick={() => history.push(`/${id}`)}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             {id}

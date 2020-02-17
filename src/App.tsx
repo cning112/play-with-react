@@ -7,6 +7,7 @@ import Home from './views/Home';
 import Project from './views/Project';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import { TestForm } from './views/TestForm';
 
 const useStyles = makeStyles({
   root: {
@@ -27,6 +28,24 @@ const useStyles = makeStyles({
   }
 });
 
+const Routes: React.FC = () => {
+  return (
+    <Switch>
+      <Route exact path="/">
+        <Home />
+      </Route>
+
+      <Route path="/test">
+        <TestForm />
+      </Route>
+
+      <Route path="/:id">
+        <Project />
+      </Route>
+    </Switch>
+  );
+};
+
 const App: React.FC = () => {
   const classes = useStyles();
   return (
@@ -38,15 +57,7 @@ const App: React.FC = () => {
           </div>
 
           <div className={classes.content}>
-            <Switch>
-              <Route exact path="/">
-                <Home />
-              </Route>
-
-              <Route path="/:id">
-                <Project />
-              </Route>
-            </Switch>
+            <Routes></Routes>
           </div>
 
           <div className={classes.footer}>

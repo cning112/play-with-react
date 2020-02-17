@@ -3,53 +3,53 @@ import Card from 'src/components/Card';
 import { ProjectInfo } from 'src/types';
 import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
-
-function getData(): ProjectInfo[] {
-  return [
-    { id: 'p1', name: 'Proj alpha', description: 'Alpha', endpoint: '/alpha' },
-    { id: 'p2', name: 'Proj beta', description: 'Beta', endpoint: '/beta' },
-    { id: 'p1', name: 'Proj alpha', description: 'Alpha', endpoint: '/alpha' },
-    { id: 'p2', name: 'Proj beta', description: 'Beta', endpoint: '/beta' },
-    { id: 'p1', name: 'Proj alpha', description: 'Alpha', endpoint: '/alpha' },
-    { id: 'p2', name: 'Proj beta', description: 'Beta', endpoint: '/beta' },
-    { id: 'p1', name: 'Proj alpha', description: 'Alpha', endpoint: '/alpha' },
-    { id: 'p2', name: 'Proj beta', description: 'Beta', endpoint: '/beta' },
-    { id: 'p1', name: 'Proj alpha', description: 'Alpha', endpoint: '/alpha' },
-    { id: 'p2', name: 'Proj beta', description: 'Beta', endpoint: '/beta' },
-    { id: 'p1', name: 'Proj alpha', description: 'Alpha', endpoint: '/alpha' },
-    { id: 'p2', name: 'Proj beta', description: 'Beta', endpoint: '/beta' },
-    { id: 'p1', name: 'Proj alpha', description: 'Alpha', endpoint: '/alpha' },
-    { id: 'p2', name: 'Proj beta', description: 'Beta', endpoint: '/beta' },
-    { id: 'p1', name: 'Proj alpha', description: 'Alpha', endpoint: '/alpha' },
-    { id: 'p2', name: 'Proj beta', description: 'Beta', endpoint: '/beta' }
-  ];
-}
+import { useRequest } from '@umijs/hooks';
+import { axios } from 'src/plugins/axios';
 
 const useStyles = makeStyles({
   cards: {
     display: 'grid',
-    gridGap: '20px',
+    gridGap: '30px',
     gridTemplateColumns: 'repeat(auto-fill, minmax(270px, 1fr))',
     justifyItems: 'center'
   }
 });
 
-export default function Home() {
-  const data = getData();
-  const classes = useStyles();
+function getProejects(): Promise<ProjectInfo[]> {
+  return axios.get('/api/v1/').then(d => d.data);
+}
 
+export default function Home() {
   return (
     <Fragment>
-      <Typography variant="h2" align="center" gutterBottom>
+      <Typography variant="h2" component="h1" align="center" gutterBottom>
         Stream First
-        <Typography variant="subtitle2">Stream First</Typography>
+        <Typography variant="subtitle2" component="h2">
+          Stream First
+        </Typography>
       </Typography>
-
-      <div className={classes.cards}>
-        {data.map(p => (
-          <Card key={p.id} projInfo={p}></Card>
-        ))}
-      </div>
+      <ListOfProjects></ListOfProjects>
     </Fragment>
+  );
+}
+
+function ListOfProjects(): JSX.Element {
+  const classes = useStyles();
+  const { data, error, loading } = useRequest(getProejects);
+
+  if (error) {
+    return <div>Failed loading projects</div>;
+  }
+
+  if (loading) {
+    return <div> Loading</div>;
+  }
+
+  return (
+    <div className={classes.cards}>
+      {data.map(p => (
+        <Card key={p.id} projInfo={p}></Card>
+      ))}
+    </div>
   );
 }
